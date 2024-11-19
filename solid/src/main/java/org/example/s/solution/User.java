@@ -13,6 +13,4 @@ public class User {
     public void sendMoney(User user, int amount) {
         System.out.println("send money");
     }
-
-
 }

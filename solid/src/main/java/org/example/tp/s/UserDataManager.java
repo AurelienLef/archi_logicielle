@@ -28,48 +28,17 @@ Note : Pour l'enregistrement et la connexion, nous n'utiliserons aucun stockage 
 
 
 public class UserDataManager {
-    private String username;
-    private String password;
-
-    public UserDataManager(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public void registerUser() {
-        // Valider le nom d'utilisateur et le mot de passe
-        if (validateUsername(username) && validatePassword(password)) {
-            // Enregistrer l'utilisateur dans la base de données
-            System.out.println("Utilisateur enregistré avec succès.");
-        } else {
-            System.out.println("Nom d'utilisateur ou mot de passe invalide.");
-        }
-    }
-
-    public void loginUser() {
-        // Valider le nom d'utilisateur et le mot de passe
-        if (validateUsername(username) && validatePassword(password)) {
-            // Authentifier l'utilisateur
-            System.out.println("Utilisateur connecté avec succès.");
-        } else {
-            System.out.println("Nom d'utilisateur ou mot de passe invalide.");
-        }
-    }
-
-    private boolean validateUsername(String username) {
-        // Valider le nom d'utilisateur (ex: longueur, caractères autorisés)
-        return username.length() >= 5 && username.matches("[a-zA-Z_0-9]+");
-    }
-
-    private boolean validatePassword(String password) {
-        // Valider le mot de passe (ex: longueur, complexité)
-        return password.length() >= 8 && password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$");
-    }
 
     public static void main(String[] args) {
-        UserDataManager userManager = new UserDataManager("john_doe", "Password123");
-        userManager.registerUser();
-        userManager.loginUser();
+        UserTP userTP = new UserTP();
+        userTP.setUsername("john_doe");
+        userTP.setPassword("Password123");
+
+        UserCoService userCoService = new UserCoService();
+        UserRegistratorService userRegistratorService = new UserRegistratorService();
+
+        userCoService.loginUser(userTP);
+        userRegistratorService.registerUser(userTP);
     }
 }
 

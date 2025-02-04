@@ -3,12 +3,13 @@ package com.example.bookservice.service.impl;
 import com.example.bookservice.entity.Book;
 import com.example.bookservice.repository.BookRepository;
 import com.example.bookservice.service.BookService;
+import org.jvnet.hk2.annotations.Service;
 
 import java.util.List;
 
+@Service
 public class BookServiceImpl implements BookService {
     private BookRepository bookRepository;
-    private
 
     @Override
     public List<Book> findAll() {

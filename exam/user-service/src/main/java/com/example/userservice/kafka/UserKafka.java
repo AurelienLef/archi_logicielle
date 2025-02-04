@@ -17,20 +17,20 @@ public class UserKafka {
     private final UserService userService;
     private final KafkaTemplate<String, String> kafkaTemplate;
 
-    @Value("${spring.kafka.topic.account:account-events}")
+    @Value("${spring.kafka.topic.user:user-events}")
     private String topic;
 
     public UserKafka(KafkaTemplate<String, String> kafkaTemplate, UserService userService) {
         this.kafkaTemplate = kafkaTemplate;
-        this.userService = userService; // Injecter le service UserService
+        this.userService = userService;
     }
     public void sendDeleteUserEvent(Long userId) {
-        String event = String.format("{\"event\":\"ACCOUNT_DELETED\",\"accountId\":\"%s\"}", userId);
+        String event = String.format("{\"event\":\"USER_DELETED\",\"userId\":\"%s\"}", userId);
         logger.info("Producing user deleted event: {}", event);
         kafkaTemplate.send(topic, event);
     }
 
-    @KafkaListener(topics = "borrowing-events", groupId = "account-group")
+    @KafkaListener(topics = "borrowing-events", groupId = "user-group")
     public void consumeBorrowingDeletedEvent(String message) {
         logger.info("Received borrowing deleted event: {}", message);
         try {
@@ -52,7 +52,7 @@ public class UserKafka {
                 }
             }
         } catch (Exception e) {
-            logger.error("Error processing account deleted event", e);
+            logger.error("Error processing user event", e);
         }
     }
 }

@@ -1,0 +1,35 @@
+server:
+  port: 8761
+
+
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true  # Active la console H2
+      path: /h2-console  # URL de la console H2
+  # A SUPP
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+  config:
+    import: "configserver:"  # Assurez-vous que cette ligne est bien présente
+  cloud:
+    config:
+      uri: http://localhost:8880  # L'adresse du Config Server
+      fail-fast: true
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+logging:
+  level:
+    root: DEBUG

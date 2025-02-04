@@ -1,5 +1,6 @@
 package com.example.userservice.entity;
 
+import com.example.userservice.enums.MembershipType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +13,7 @@ public class User {
     private Long id;
     private String name;
     private String email;
-    private Enum membershipType; // Regular, Premium
+    private MembershipType membershipType; // Regular, Premium
     private boolean isLocked;
     private Integer nombreMaxEmprunt;
 
@@ -40,11 +41,11 @@ public class User {
         this.email = email;
     }
 
-    public Enum getMembershipType() {
+    public MembershipType getMembershipType() {
         return membershipType;
     }
 
-    public void setMembershipType(Enum membershipType) {
+    public void setMembershipType(MembershipType membershipType) {
         this.membershipType = membershipType;
     }
 

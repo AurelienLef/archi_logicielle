@@ -1,6 +1,7 @@
 package com.example.userservice.service.impl;
 
 import com.example.userservice.dto.UserDetailDto;
+import com.example.userservice.rest.userServiceRest;
 import com.example.userservice.entity.User;
 import com.example.userservice.kafka.UserKafka;
 import com.example.userservice.repository.UserRepository;
@@ -13,7 +14,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
-    private UserService userService;
+    private userServiceRest userServiceRest;
 
     private UserKafka userKafka;
 
@@ -24,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     @Override
@@ -36,10 +37,10 @@ public class UserServiceImpl implements UserService {
     public User updateUserLock(Long id, boolean lock) {
         return userRepository.findById(id)
                 .map(user -> {
-                    user.setLocked(lock);  // Met à jour l'état verrouillé
-                    return userRepository.save(user); // Sauvegarde en base
+                    user.setLocked(lock);
+                    return userRepository.save(user);
                 })
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + id)); // Gère le cas où l'utilisateur n'existe pas
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
     }
 
@@ -51,6 +52,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetailDto getUserDetailById(Long id) {
-        return null;
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        UserDetailDto dto = new UserDetailDto();
+        dto.setId(user.getId());
+        dto.setName(user.getName());
+        dto.setEmail(user.getEmail());
+        dto.setMembershipType(user.getMembershipType());
+        dto.setLocked(user.isLocked());
+
+        dto.setBorrowings(userServiceRest.getBorrowingByUserId(user.getId()));
+
+        return dto;
     }
 }

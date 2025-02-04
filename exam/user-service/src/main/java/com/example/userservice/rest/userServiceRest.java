@@ -10,11 +10,11 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class userService {
+public class userServiceRest {
     private final RestTemplate restTemplate;
     private static final String BORROW_URL = "http://borrowing-service/byUser";
 
-    public userService(RestTemplate restTemplate, RestTemplate restTemplate1) {
+    public userServiceRest(RestTemplate restTemplate, RestTemplate restTemplate1) {
         this.restTemplate = restTemplate1;
     }
 

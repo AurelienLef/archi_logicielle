@@ -1,10 +1,19 @@
 package com.example.bookservice.dto;
 
 public class BookDto {
+    private Long id;
     private String title;
     private String author;
     private String category;
     private boolean isAvailable;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

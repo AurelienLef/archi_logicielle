@@ -1,5 +1,6 @@
 package com.example.bookservice.controller;
 
+import com.example.bookservice.dto.BookDto;
 import com.example.bookservice.entity.Book;
 import com.example.bookservice.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,12 @@ public class BookController {
     @PostMapping
     public Book create(@RequestBody Book book){return bookService.create(book);};
 
+    @GetMapping
+    public Book updateAvaiable(@PathVariable Long id, boolean aviable){return bookService.updateAvaiable(id, aviable);};
+
     @DeleteMapping("{/id}")
     public Book deleteById(@PathVariable Long id){return bookService.deleteById(id);};
+
+    @GetMapping("{/id/details}")
+    public BookDto getBookDto(@PathVariable Long id){return bookService.getBookDto(id);};
 }

@@ -1,11 +1,13 @@
 package com.example.borrowingservice.dto;
 
+import com.example.borrowingservice.enums.MembershipType;
+
 import java.util.List;
 
 public class UserDetailDto {
     private String name;
     private String email;
-    private Enum membershipType; // Regular, Premium
+    private MembershipType membershipType; // Regular, Premium
     private boolean isLocked;
     private List<BorrowingDto> borrowings;
 
@@ -25,11 +27,11 @@ public class UserDetailDto {
         this.email = email;
     }
 
-    public Enum getMembershipType() {
+    public MembershipType getMembershipType() {
         return membershipType;
     }
 
-    public void setMembershipType(Enum membershipType) {
+    public void setMembershipType(MembershipType membershipType) {
         this.membershipType = membershipType;
     }
 

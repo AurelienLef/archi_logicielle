@@ -1,4 +1,4 @@
 package com.example.bookservice.rest;
 
-public class BookService {
+public class BookServiceRest {
 }

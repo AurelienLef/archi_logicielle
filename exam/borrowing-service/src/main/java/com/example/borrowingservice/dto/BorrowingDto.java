@@ -3,10 +3,19 @@ package com.example.borrowingservice.dto;
 import java.time.LocalDate;
 
 public class BorrowingDto {
+    private Long id;
     private Long bookId;
     private Long userId;
     private LocalDate borrowDate;
     private LocalDate returnDate;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getBookId() {
         return bookId;
